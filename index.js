@@ -1,4 +1,5 @@
 var Botkit = require('botkit')
+var _ = require('lodash')
 
 // Expect a SLACK_TOKEN environment variable
 var slackToken = process.env.SLACK_TOKEN
@@ -63,6 +64,19 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
   })
 })
 
+controller.hears(['salt lamp'], ['message_received', 'direct_message', 'direct_mention'], function (bot, message) {
+
+    var lamps = [
+        'https://images-na.ssl-images-amazon.com/images/G/01/th/content_26/Q1_2011/c26-B001892AX2-3-s.jpg',
+        'http://media.mercola.com/assets/shopimages/18-763-Product_Primary_Image.jpg',
+        'http://saltcaveworth.com/uploads/3/4/8/7/34874128/7853868_orig.jpg',
+        'https://s-media-cache-ak0.pinimg.com/236x/d5/4b/41/d54b41dc7e869d8d7ac63b8b2173fae2.jpg',
+        'https://www.evolutionsalt.com/media/catalog/product/cache/1/image/500x500/358cc0f66409674f5f4d301046e4502c/e/c/ectl.jpg'
+    ];
+
+    bot.reply(message, _.sample(lamps));
+
+})
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
 })
